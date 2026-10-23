@@ -4,6 +4,10 @@
   "description": "This is the call tracking api.",
   "main": "index.js",
   "scripts": {
+    "dev": "concurrently \"node --watch --watch-preserve-output ./src/server.ts\" \"tsc --noEmit --watch --preserveWatchOutput\"",
+    "build": "tsc",
+    "start": "node ./dist/server.js",
+    "typecheck": "tsc --noEmit --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +22,7 @@
   "homepage": "https://github.com/rmpcoding/call-tracking-api#readme",
   "devDependencies": {
     "@types/node": "^24.19.2",
+    "concurrently": "^10.0.6",
     "typescript": "^7.0.2"
   }
 }
