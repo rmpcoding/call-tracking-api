@@ -24,6 +24,7 @@
     "erasableSyntaxOnly": true,
 
     // Style Options
+    "rewriteRelativeImportExtensions": true,
     // "noImplicitReturns": true,
     // "noImplicitOverride": true,
     // "noUnusedLocals": true,

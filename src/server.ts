@@ -1,15 +1,22 @@
-import Fastify from "fastify";
+import Fastify, { type FastifyInstance } from "fastify";
 
-const server = Fastify({
+import routes from "./routes/index.ts";
+
+const server: FastifyInstance = Fastify({
   logger: true,
 });
 
-// placeholder route
-server.get("/", async (req, res) => {
-  res.send({
-    salutation: "hello",
-  });
-});
+/*
+Loading order of plugins 
+    └── plugins (from the Fastify ecosystem)
+    └── your plugins (your custom plugins)
+    └── decorators
+    └── hooks
+    └── your services
+https://fastify.dev/docs/latest/Guides/Getting-Started/#loading-order-of-your-plugins
+*/
+
+server.register(routes);
 
 // start server
 server.listen({ port: 8080 }, (err, address) => {
