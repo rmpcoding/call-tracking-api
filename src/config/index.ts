@@ -18,13 +18,7 @@ const handlePort = () => {
 
   const port = Number(nodePort);
 
-  if (!port) {
-    throw new Error(
-      `NODE_PORT must be an integer, got ${typeof port} instead.`,
-    );
-  }
-
-  if (port < 1 || port > 65535) {
+  if (port < 1 || port > 65535 || !nodePort) {
     throw new Error(
       `NODE_PORT must be an integer between 0 and 65535, got ${port} instead.`,
     );
