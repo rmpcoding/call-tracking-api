@@ -35,9 +35,7 @@ const handleHost = () => {
       : NODE_HOST_LOCAL;
 
   if (!nodeHost) {
-    throw new Error(
-      `NODE_HOST must be a string, got ${typeof nodeHost} instead.`,
-    );
+    throw new Error(`NODE_HOST must be a string, got ${nodeHost} instead.`);
   }
 
   return `${nodeHost}`;
