@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 const { NODE_HOST, NODE_PORT } = process.env;
 
 const handlePort = () => {

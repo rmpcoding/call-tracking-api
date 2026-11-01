@@ -4,9 +4,9 @@
   "description": "This is the call tracking api.",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"node --watch --watch-preserve-output ./src/server.ts\" \"tsc --noEmit --watch --preserveWatchOutput\"",
+    "dev": "concurrently \"node --watch --watch-preserve-output --env-file=.env ./src/server.ts\" \"tsc --noEmit --watch --preserveWatchOutput\"",
     "build": "tsc",
-    "start": "node ./dist/server.js",
+    "start": "node --env-file=.env ./dist/server.js",
     "typecheck": "tsc --noEmit --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "@fastify/type-provider-typebox": "^6.3.0",
-    "dotenv": "^18.0.8",
     "fastify": "^5.12.7",
     "typebox": "^1.4.2"
   }
