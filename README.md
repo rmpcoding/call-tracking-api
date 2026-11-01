@@ -6,7 +6,7 @@ This is the call tracking api.
 
 Running locally, use `npm run dev` to start the app.
 
-WIP: Docker, use `docker compose up --build`.
+Docker, use `docker compose up --build`.
 
 Required environment variables:
 
