@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"node --watch --watch-preserve-output --env-file=.env ./src/server.ts\" \"tsc --noEmit --watch --preserveWatchOutput\"",
     "build": "tsc",
-    "start": "node --env-file=.env ./dist/server.js",
+    "start": "node --env-file-if-exists=.env ./dist/server.js",
     "typecheck": "tsc --noEmit --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
