@@ -1,5 +1,5 @@
 import Fastify, { type FastifyInstance } from "fastify";
-import config from "./config/index.ts";
+import config from "./config/config.ts";
 
 import routes from "./routes/index.ts";
 
