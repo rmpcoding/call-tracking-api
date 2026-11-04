@@ -1,29 +1,6 @@
-const { NODE_HOST, NODE_PORT } = process.env;
+import { handleEnv } from "./helpers.ts";
 
-const handlePort = () => {
-  const port = Number(NODE_PORT);
-
-  if (port < 1 || port > 65535 || !Number.isInteger(port)) {
-    throw new Error(
-      `NODE_PORT must be an integer between 1 and 65535, got ${NODE_PORT} instead.`,
-    );
-  }
-
-  return port;
-};
-
-const handleHost = () => {
-  if (!NODE_HOST) {
-    throw new Error(`NODE_HOST must be defined, got ${NODE_HOST} instead.`);
-  }
-
-  return NODE_HOST;
-};
-
-const config = {
-  port: handlePort(),
-  host: handleHost(),
-} as const;
+const config = handleEnv(process.env);
 
 Object.freeze(config);
 
