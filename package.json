@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"node --watch --watch-preserve-output --env-file=.env ./src/server.ts\" \"tsc --noEmit --watch --preserveWatchOutput\"",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.prod.json",
     "start": "node --env-file-if-exists=.env ./dist/server.js",
     "typecheck": "tsc --noEmit --watch",
     "test": "vitest"
