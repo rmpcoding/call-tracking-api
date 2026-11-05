@@ -7,7 +7,7 @@ describe("centralized config module helpers", () => {
     expect(handlePort("65535")).toBe(65535);
   });
 
-  test("handlePort should throw before Fastify starts", () => {
+  test("handlePort should throw on invalid input", () => {
     expect(() => handlePort("abc")).toThrow(/NODE_PORT must be an integer/);
     expect(() => handlePort("123.4")).toThrow(/NODE_PORT must be an integer/);
     expect(() => handlePort("")).toThrow(/NODE_PORT must be an integer/);
@@ -22,7 +22,7 @@ describe("centralized config module helpers", () => {
     expect(handleHost("0.0.0.0")).toBe("0.0.0.0");
   });
 
-  test("handleHost should throw before Fastify starts", () => {
+  test("handleHost should throw on invalid input", () => {
     expect(() => handleHost("")).toThrow(/NODE_HOST must be defined/);
     expect(() => handleHost(undefined)).toThrow(/NODE_HOST must be defined/);
   });
