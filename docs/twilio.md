@@ -44,6 +44,8 @@ We should go this route: `<Dial>`'s `action` attribute. After the dialed call en
 
 A different way of finding the child leg's duration of the call is by using the `statusCallbackEvent`. The `statusCallbackEvent` let's us specify which events Twilio will trigger a webhook on, including multiple events if we wish. Defining the URL we give to `statusCallback`, we get back http parameters that include `CallDuration`, which is only present in the `completed` step. See docs here: https://www.twilio.com/docs/voice/twiml/number#attributes-status-callback
 
+Going back to the Dial action, we will be creating a row in the db using the CallSid, then when the Dial action calls the business or personal number (and after the conversation ends), we update that row with both the duration in seconds and DialCallSid (the child id)
+
 ## How does Twilio reach a server running on your Mac during development?
 
 https://www.twilio.com/en-us/blog/test-your-webhooks-locally-with-ngrok-html
