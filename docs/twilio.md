@@ -4,19 +4,17 @@ A good place to start: https://www.twilio.com/docs/usage
 
 ## When a call comes in, what request does Twilio send, and which fields identify the caller and the call?
 
-https://www.twilio.com/docs/voice/twiml#twilios-request-to-your-application
+### Request
 
-When someone calls a number associated with your Twilio number, Twilio sends an HTTP request to the webhook you provided to Twilio.
+When someone calls a number associated with your Twilio number, Twilio sends an HTTP request using a `GET` or `POST` http method to the webhook url you provided to Twilio. For call-tracker-api, we will send a response (TwiML instructions on handling the call) using `POST` method. See docs on Twilio request: https://www.twilio.com/docs/voice/twiml#twilios-request-to-your-application
 
-Twilio needs to request TwiML from the call-tracker-api to get instructions on handling the call.
+### Request Parameters
 
-Here are the docs on which parameters the request will have: https://www.twilio.com/docs/voice/twiml#request-parameters
+Twilio identifies the caller using the `From` property in the request. The `To` property is the called party's number. `CallStatus` is the descriptive status of the call, with values like `canceled`, `completed`, `busy`, etc... `CallSid` is the unique identifier for the call itself. Important to our application, there is a `DialCallSid`, the child call identifier. See other Twilio request parameters: https://www.twilio.com/docs/voice/twiml#request-parameters
 
-Twilio identifies the caller using the `From` property in the request. The `To` property is the called party's number. `CallStatus` is the descriptive status of the call, with values like `canceled`, `completed`, `busy`, etc...
+### Content Type
 
-`CallSid` is the unique identifier for the call itself. Important to our application, there is a `ParentCallSid`, a parent identifier from which the call leg was created. `CallToken` is a token for invoking forwarded calls while `Direction` describes the direction of the call, like `inbound` for incoming calls, or `outbound-dial` for calls initiated by `<Dial>`.
-
-Requests to Twilio are expected to have a content type of `application/x-www-form-urlencoded` (or `multipart/form-data`). See docs here: https://www.twilio.com/docs/usage/requests-to-twilio#content-type-requirements.
+Requests from Twilio are expected to have a content type of `application/x-www-form-urlencoded`. See docs here: https://www.twilio.com/docs/usage/webhooks/webhooks-security#form-parameters
 
 ## How does the API tell Twilio to forward the call to your phone?
 
@@ -32,7 +30,7 @@ Simple TwiML in code:
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Dial>415-123-4567</Dial>
+    <Dial>+14151234567</Dial>
 </Response>
 ```
 
@@ -44,7 +42,7 @@ For the purpose of the call-tracker-api, we want to see whether or not a call's 
 
 https://www.twilio.com/docs/voice/twiml/dial#action
 
-We should go this route: `<Dial>`'s `action` attribute. After the dialed call ends, Twilio uses the URL inside the `action` attribute's value to know where to go, giving us a request with `DialCallDuration`, which has the number of seconds a call lasts (the child leg of the call, where the convo actually happens). This is perhaps our better option. We also get `DialCallStatus`, `DialCallSid`, and as a bonus `RecordingUrl` for the recorded audio.
+We should go this route: `<Dial>`'s `action` attribute. After the dialed call ends, Twilio uses the URL inside the `action` attribute's value to know where to go, giving us a request with `DialCallDuration`, which has the number of seconds a call lasts (the child leg of the call, where the convo actually happens). This is perhaps our better option. We also get `DialCallStatus`, `DialCallSid`, and even `RecordingUrl` for the recorded audio if `<DialRecord>` is set. Remember, recording calls have legal implications, so this needs to be handled carefully if we decide to go this route.
 
 A different way of finding the child leg's duration of the call below.
 
